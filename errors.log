@@ -1,0 +1,122 @@
+2018-12-03 09:49:11,980 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-3-07f851602e1f> in <module>()
+      1 import random
+----> 2 seed(12345)
+
+NameError: name 'seed' is not defined
+2018-12-03 09:49:23,981 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-6-ca8b98d1fe66> in <module>()
+      1 text = "Antons likes pizza"
+----> 2 print(distortText(text=text))
+
+<ipython-input-4-315315263b06> in distortText(text, d_whitespaces)
+     17             distorted_symbol = round((len(list_words[i]) - 1) * random.random())
+     18             s1 = list_words[i][distorted_symbol - 1]
+---> 19             list_words[i][distorted_symbol - 1] = list_words[i][distorted_symbol]
+     20             list_words[i][distorted_symbol] = s1
+     21     
+
+TypeError: 'str' object does not support item assignment
+2018-12-03 10:11:00,660 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+  File "<ipython-input-38-faba5e5ab314>", line 22
+    else if swap_type == "symboldelete":
+          ^
+SyntaxError: invalid syntax
+
+2018-12-03 10:19:00,909 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+  File "<ipython-input-52-358794607166>", line 23
+    + list_words[i][distorted_symbol]
+    ^
+IndentationError: unexpected indent
+
+2018-12-03 10:19:17,731 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+  File "<ipython-input-53-024b169880a1>", line 22
+    list_words[i] = list_words[i][0:(distorted_symbol - 1) * (distorted_symbol > 0)] \                          + list_words[i][distorted_symbol]
+                                                                                                                                                  ^
+SyntaxError: unexpected character after line continuation character
+
+2018-12-03 10:19:27,101 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+  File "<ipython-input-54-4f2a77b36d3a>", line 23
+    + s1
+    ^
+IndentationError: unexpected indent
+
+2018-12-03 10:37:01,823 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-108-30bb955ad8f5> in <module>()
+      1 text = "Antons likes pizza"
+----> 2 print(distortText(text=text,swap_type="symbolreplaceprev"))
+
+<ipython-input-107-a5189cd3faab> in distortText(text, swap_type)
+     38             ## min distorted symbol = 1, max distorted symbol = len
+     39             distorted_symbol = round(1 + len(list_words[i]) * random.random())
+---> 40             list_words[i] = list_words[i][0:(distorted_symbol - 1)] + list_words[i][distorted_symbol] + list_words[i][distorted_symbol + 1:]
+     41             
+     42     distortedText = " ".join(list_words)
+
+IndexError: string index out of range
+2018-12-03 10:41:16,794 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-117-30bb955ad8f5> in <module>()
+      1 text = "Antons likes pizza"
+----> 2 print(distortText(text=text,swap_type="symbolreplaceprev"))
+
+<ipython-input-116-71dd2168a0d4> in distortText(text, swap_type)
+     39             distorted_symbol = round(1 + len(list_words[i]) * random.random())
+     40             print(distorted_symbol)
+---> 41             print("{}---{}-{}-{}".format(distorted_symbol, list_words[i][0:(distorted_symbol)], list_words[i][distorted_symbol - 1], list_words[i][distorted_symbol + 1:]))
+     42             list_words[i] = list_words[i][0:(distorted_symbol)] + list_words[i][distorted_symbol - 1] + list_words[i][distorted_symbol + 1:]
+     43             
+
+IndexError: string index out of range
+2018-12-03 10:43:18,487 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-124-30bb955ad8f5> in <module>()
+      1 text = "Antons likes pizza"
+----> 2 print(distortText(text=text,swap_type="symbolreplaceprev"))
+
+<ipython-input-122-1017b4399059> in distortText(text, swap_type)
+     38             ## min distorted symbol = 1, max distorted symbol = len
+     39             distorted_symbol = round(1 + len(list_words[i]) * random.random())
+---> 40             print("{}---{}-{}-{}".format(distorted_symbol, list_words[i][0:(distorted_symbol)], list_words[i][distorted_symbol - 1], list_words[i][distorted_symbol + 1:]))
+     41             list_words[i] = list_words[i][0:(distorted_symbol)] + list_words[i][distorted_symbol - 1] + list_words[i][distorted_symbol + 1:]
+     42             
+
+IndexError: string index out of range
+2018-12-03 10:44:29,212 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-128-30bb955ad8f5> in <module>()
+      1 text = "Antons likes pizza"
+----> 2 print(distortText(text=text,swap_type="symbolreplaceprev"))
+
+<ipython-input-125-8442fe1cf01d> in distortText(text, swap_type)
+     38             ## min distorted symbol = 1, max distorted symbol = len
+     39             distorted_symbol = round(1 + len(list_words[i]) * random.random())
+---> 40             print("{}---{}-{}-{}".format(distorted_symbol, list_words[i][0:(distorted_symbol)], list_words[i][distorted_symbol - 1], list_words[i][distorted_symbol + 1 * (len(list_words[i]) > distorted_symbol):]))
+     41             list_words[i] = list_words[i][0:(distorted_symbol)] + list_words[i][distorted_symbol - 1] + list_words[i][distorted_symbol + 1:]
+     42             
+
+IndexError: string index out of range
+2018-12-03 10:45:15,251 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-130-30bb955ad8f5> in <module>()
+      1 text = "Antons likes pizza"
+----> 2 print(distortText(text=text,swap_type="symbolreplaceprev"))
+
+<ipython-input-129-a4e7b9c1bc0a> in distortText(text, swap_type)
+     39             distorted_symbol = round(1 + len(list_words[i]) * random.random())
+     40             print("{} - {}".format(distorted_symbol, list_words[i]))
+---> 41             print("{}---{}-{}-{}".format(distorted_symbol, list_words[i][0:(distorted_symbol)], list_words[i][distorted_symbol - 1], list_words[i][distorted_symbol + 1 * (len(list_words[i]) > distorted_symbol):]))
+     42             list_words[i] = list_words[i][0:(distorted_symbol)] + list_words[i][distorted_symbol - 1] + list_words[i][distorted_symbol + 1:]
+     43             
+
+IndexError: string index out of range
