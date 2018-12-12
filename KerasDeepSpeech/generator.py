@@ -5,7 +5,6 @@ from sklearn.utils import shuffle
 
 import python_speech_features as p
 import scipy.io.wavfile as wav
-import soundfile
 import scipy
 from aubio import source, pvoc, mfcc
 from numpy import vstack, zeros, diff
@@ -26,11 +25,13 @@ class BatchGenerator(object):
         # self.aubio = False
         self.df = dataframe.copy()
         #['wav_filesize','transcript','wav_filename']
-        self.wavpath = self.df['wav_filename'].tolist()
-        self.transcript = self.df['transcript'].tolist()
-        self.finish = self.df['wav_filesize'].tolist()
-        self.start = np.zeros(len(self.finish))
-        self.length = self.finish
+        #self.wavpath = self.df['wav_filename'].tolist()
+        #self.transcript = self.df['transcript'].tolist()
+        #self.finish = self.df['wav_filesize'].tolist()
+        #self.start = np.zeros(len(self.finish))
+        #self.length = self.finish
+        self.x = self.df["X"]
+        self.y = self.df["Y"]
         self.shuffling = True
 
         self.batch_size = batch_size
@@ -44,16 +45,16 @@ class BatchGenerator(object):
         #Free up memory of unneeded data
         del dataframe
         del dataproperties
-        self.df = None
-        del self.df
+        #self.df = None
+        #del self.df
 
     def normalise(self, feature, eps=1e-14):
         return (feature - self.feats_mean) / (self.feats_std + eps)
 
     def get_batch(self, idx):
 
-        batch_x = self.wavpath[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch_y_trans = self.transcript[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_x = self.x[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_y_trans = self.y[idx * self.batch_size:(idx + 1) * self.batch_size]
 
         try:
             assert (len(batch_x) == self.batch_size)
@@ -74,7 +75,7 @@ class BatchGenerator(object):
         
         if(self.model_input_type == "text"):
             # 0. get the maximum time length of the batch
-            x_val = [get_max_time(file_name) for file_name in batch_x]
+            x_val = [get_max_time(item) for item in batch_x]
             max_val = max(x_val)
             # print("Max batch time value is:", max_val)
             X_data = np.array([make_mfcc_shape(file_name, padlen=max_val) for file_name in batch_x])
@@ -130,15 +131,15 @@ class BatchGenerator(object):
 
     def next_batch(self):
         while 1:
-            assert (self.batch_size <= len(self.wavpath))
+            assert (self.batch_size <= len(self.df))
 
-            if (self.cur_index + 1) * self.batch_size >= len(self.wavpath) - self.batch_size:
+            if (self.cur_index + 1) * self.batch_size >= len(self.df) - self.batch_size:
 
                 self.cur_index = 0
 
-                if(self.shuffling==True):
-                    print("SHUFFLING as reached end of data")
-                    self.genshuffle()
+                #if(self.shuffling==True):
+                #    print("SHUFFLING as reached end of data")
+                #    self.genshuffle()
 
             try:
                 ret = self.get_batch(self.cur_index)
@@ -208,11 +209,13 @@ def get_intseq(trans, max_intseq_length=80):
     # print(t)
     return t
 
-def get_max_time(filename):
-    fs, audio = wav.read(filename)
-    r = p.mfcc(audio, samplerate=fs, numcep=26)  # 2D array -> timesamples x mfcc_features
+def get_max_time(item):
+    #fs, audio = wav.read(filename)
+    #r = p.mfcc(audio, samplerate=fs, numcep=26)  # 2D array -> timesamples x mfcc_features
     # print(r.shape)
-    return r.shape[0]  #
+
+    #return r.shape[0]  #
+    return len(item)
 
 def get_max_specto_time(filename):
     r = spectrogram_from_file(filename)
