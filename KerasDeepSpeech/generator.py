@@ -78,7 +78,8 @@ class BatchGenerator(object):
             x_val = [get_max_time(item) for item in batch_x]
             max_val = max(x_val)
             # print("Max batch time value is:", max_val)
-            X_data = np.array([make_mfcc_shape(file_name, padlen=max_val) for file_name in batch_x])
+            # TODO: pad the input and output sequences to the same length with 0s
+            X_data = np.array([make_mfcc_shape(item, padlen=max_val) for item in batch_x])
             assert (X_data.shape == (self.batch_size, max_val, 44))
 
         # print("1. X_data shape:", X_data.shape)
