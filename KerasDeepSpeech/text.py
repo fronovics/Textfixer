@@ -1,7 +1,7 @@
 # this file is an adaptation from the work at mozilla deepspeech github.com/mozilla/DeepSpeech
 
 
-import kenlm
+#import kenlm
 import re
 from heapq import heapify
 
@@ -86,8 +86,9 @@ def levenshtein(a,b):
 def get_model():
     global MODEL
     if MODEL is None:
+        pass
         #MODEL = kenlm.Model('./lm/timit-lm.klm')
-        MODEL = kenlm.Model('./lm/libri-timit-lm.klm')
+        #MODEL = kenlm.Model('./lm/libri-timit-lm.klm')
     return MODEL
 
 
@@ -142,5 +143,5 @@ def edits2(word):
 
 MODEL = None
 # Load known word set
-with open('./lm/words.txt') as f:
-    WORDS = set(words(f.read()))
+#with open('./lm/words.txt') as f:
+#    WORDS = set(words(f.read()))

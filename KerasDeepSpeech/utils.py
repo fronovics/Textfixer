@@ -1,4 +1,4 @@
-from char_map import char_map, index_map
+from KerasDeepSpeech.char_map import char_map, index_map
 
 
 from pympler import muppy, summary, tracker, classtracker
@@ -6,7 +6,7 @@ from pympler.garbagegraph import GarbageGraph, start_debug_garbage
 from pympler.web import start_profiler, start_in_background
 import types
 
-import resource
+#import resource
 import tensorflow as tf
 import keras
 from keras.models import model_from_json, load_model
@@ -19,21 +19,29 @@ import sys
 import h5py
 import yaml
 
-from model import clipped_relu, selu
+from KerasDeepSpeech.model import clipped_relu, selu
+
+
+alphabets = {'a':0, 'b':1, 'c':2, 'd':3, 'e':4, 'f':5, 'g':6, 'h':7, 'i':8, 'j':9, 'k':10, 'l':11, 'm':12, 'n':13, 'o':14,
+            'p':15, 'q':16, 'r':17, 's':18, 't':19, 'u':20, 'v':21, 'w':22, 'x':23, 'y':24, 'z':25, 
+            '0':26, '1':27, '2':28, '3':29, '4':30, '5':31, '6':32, '7':33, '8':34, '9':35, 
+            ' ':36, ',':37, '.':38, ':':39, ';':40, '"':41, "'":42, '':43, '(':44, ')':45} #43 = unknown symbol
+
 
 # these text/int characters are modified
 # from the DS2 github.com/baidu-research/ba-dls-deepspeech
 
 def text_to_int_sequence(text):
     """ Use a character map and convert text to an integer sequence """
-    int_sequence = []
-    for c in text:
-        if c == ' ':
-            ch = char_map['<SPACE>']
-        else:
-            ch = char_map[c]
-        int_sequence.append(ch)
-    return int_sequence
+    #int_sequence = []
+    #for c in text:
+    #    if c == ' ':
+    #        ch = char_map['<SPACE>']
+    #    else:
+    #        ch = char_map[c]
+    #    int_sequence.append(ch)
+    return [alphabets[ch] if ch in alphabets else 43 for ch in text.lower]
+    #return int_sequence
 
 def int_to_text_sequence(seq):
     """ Use a index map and convert int to a text sequence
@@ -43,10 +51,14 @@ def int_to_text_sequence(seq):
     """
     text_sequence = []
     for c in seq:
-        if c == 28: #ctc/pad char
+        #if c == 28: #ctc/pad char
+        #    ch = ''
+        #else:
+        #    ch = index_map[c]
+        if c >= len(alphabets): # if not in alphabets, then none
             ch = ''
         else:
-            ch = index_map[c]
+            ch = list(alphabets.keys())[list(alphabets.values()).index(1)]
         text_sequence.append(ch)
     return text_sequence
 

@@ -1,5 +1,5 @@
 from keras import callbacks
-from text import *
+from KerasDeepSpeech.text import *
 
 import itertools
 import numpy as np
@@ -8,7 +8,7 @@ import socket
 import sys
 import keras.backend as K
 
-from utils import save_model, int_to_text_sequence
+from KerasDeepSpeech.utils import save_model, int_to_text_sequence
 
 class ReportCallback(callbacks.Callback):
     def __init__(self, test_func, validdata, model, runtimestr, save):
@@ -47,7 +47,7 @@ class ReportCallback(callbacks.Callback):
         self.validdata.cur_index = 0  # reset index
 
         if self.valid_test_devide: #check not zero
-            allvalid = (len(self.validdata.wavpath) // self.validdata.batch_size) // self.valid_test_devide
+            allvalid = (len(self.validdata.x) // self.validdata.batch_size) // self.valid_test_devide
 
 
         #make a pass through all the validation data and assess score

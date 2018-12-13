@@ -3,10 +3,10 @@ import numpy as np
 from numpy.lib.stride_tricks import as_strided
 from sklearn.utils import shuffle
 
-import python_speech_features as p
+#import python_speech_features as p
 import scipy.io.wavfile as wav
 import scipy
-from aubio import source, pvoc, mfcc
+#from aubio import source, pvoc, mfcc
 from numpy import vstack, zeros, diff
 
 
@@ -14,7 +14,7 @@ from numpy import vstack, zeros, diff
 
 from keras.preprocessing.sequence import pad_sequences
 
-from utils import text_to_int_sequence
+from KerasDeepSpeech.utils import text_to_int_sequence
 
 # Data batch generator, responsible for providing the data to fit_generator
 
@@ -79,8 +79,12 @@ class BatchGenerator(object):
             max_val = max(x_val)
             # print("Max batch time value is:", max_val)
             # TODO: pad the input and output sequences to the same length with 0s
-            X_data = np.array([make_mfcc_shape(item, padlen=max_val) for item in batch_x])
-            assert (X_data.shape == (self.batch_size, max_val, 44))
+            #X_data = np.array([make_mfcc_shape(item, padlen=max_val) for item in batch_x])
+            X_data = np.array([np.transpose(pad_sequences(np.transpose(item), maxlen = max_val, dtype='int',padding='post',truncating='post')) for item in batch_x])
+            print(X_data.shape)
+            print(len(X_data[0]))
+            print(len(X_data[0][0]))
+            assert (X_data.shape == (self.batch_size, max_val, 46))
 
         # print("1. X_data shape:", X_data.shape)
         # print("1. X_data:", X_data)
@@ -88,14 +92,17 @@ class BatchGenerator(object):
 
         # 2. labels (made numerical)
         # get max label length
-        y_val = [get_maxseq_len(l) for l in batch_y_trans]
+        #y_val = [get_maxseq_len(l) for l in batch_y_trans]
+        y_val = [len(l) for l in batch_y_trans]
         # print(y_val)
         max_y = max(y_val)
         # print(max_y)
-        labels = np.array([get_intseq(l, max_intseq_length=max_y) for l in batch_y_trans])
+        #labels = np.array([get_intseq(l, max_intseq_length=max_y) for l in batch_y_trans])
+        labels = np.array([np.transpose(pad_sequences(np.transpose(item), maxlen = max_y, dtype='int',padding='post',truncating='post')) for item in batch_x])
         # print("2. labels shape:", labels.shape)
         # print("2. labels values=", labels)
-        assert(labels.shape == (self.batch_size, max_y))
+        #assert(labels.shape == (self.batch_size, max_y))
+        assert(labels.shape == (self.batch_size, max_y, 46))
 
         # 3. input_length (required for CTC loss)
         # this is the time dimension of CTC (batch x time x mfcc)
