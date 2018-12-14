@@ -81,9 +81,7 @@ class BatchGenerator(object):
             # TODO: pad the input and output sequences to the same length with 0s
             #X_data = np.array([make_mfcc_shape(item, padlen=max_val) for item in batch_x])
             X_data = np.array([np.transpose(pad_sequences(np.transpose(item), maxlen = max_val, dtype='int',padding='post',truncating='post')) for item in batch_x])
-            print(X_data.shape)
-            print(len(X_data[0]))
-            print(len(X_data[0][0]))
+            
             assert (X_data.shape == (self.batch_size, max_val, 46))
 
         # print("1. X_data shape:", X_data.shape)
@@ -94,15 +92,15 @@ class BatchGenerator(object):
         # get max label length
         #y_val = [get_maxseq_len(l) for l in batch_y_trans]
         y_val = [len(l) for l in batch_y_trans]
-        # print(y_val)
+        #print(y_val)
         max_y = max(y_val)
-        # print(max_y)
-        #labels = np.array([get_intseq(l, max_intseq_length=max_y) for l in batch_y_trans])
-        labels = np.array([np.transpose(pad_sequences(np.transpose(item), maxlen = max_y, dtype='int',padding='post',truncating='post')) for item in batch_x])
-        # print("2. labels shape:", labels.shape)
+        #print(max_y)
+        labels = np.array([get_intseq(l, max_intseq_length=max_y) for l in batch_y_trans])
+        #labels = np.array([pad_sequences(item, maxlen = max_y, dtype='int',padding='post',truncating='post') for item in batch_y_trans])
+        #print("2. labels shape:", labels.shape)
         # print("2. labels values=", labels)
         #assert(labels.shape == (self.batch_size, max_y))
-        assert(labels.shape == (self.batch_size, max_y, 46))
+        assert(labels.shape == (self.batch_size, max_y))
 
         # 3. input_length (required for CTC loss)
         # this is the time dimension of CTC (batch x time x mfcc)
@@ -213,7 +211,7 @@ def get_intseq(trans, max_intseq_length=80):
     # PAD
     t = text_to_int_sequence(trans)
     while (len(t) < max_intseq_length):
-        t.append(27)  # replace with a space char to pad
+        t.append(36)  # replace with a space char to pad
     # print(t)
     return t
 

@@ -4,6 +4,7 @@
 #import kenlm
 import re
 from heapq import heapify
+import io
 
 def wer(original, result):
     r"""
@@ -143,5 +144,5 @@ def edits2(word):
 
 MODEL = None
 # Load known word set
-#with open('./lm/words.txt') as f:
-#    WORDS = set(words(f.read()))
+with io.open('./KerasDeepSpeech/lm/words.txt', mode="r", encoding="utf-8") as f:
+    WORDS = set(words(f.read()))

@@ -40,7 +40,7 @@ def text_to_int_sequence(text):
     #    else:
     #        ch = char_map[c]
     #    int_sequence.append(ch)
-    return [alphabets[ch] if ch in alphabets else 43 for ch in text.lower]
+    return [alphabets[ch] if ch in alphabets else 43 for ch in text.lower()]
     #return int_sequence
 
 def int_to_text_sequence(seq):

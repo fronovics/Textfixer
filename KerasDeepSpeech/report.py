@@ -36,7 +36,7 @@ class ReportCallback(callbacks.Callback):
         self.norm_mean_ler_log = []
 
         self.earlystopping = True
-        self.shuffle_epoch_end = True
+        self.shuffle_epoch_end = False #was True, changed to False by Antons
         self.force_output = False
 
     def validate_epoch_end(self, verbose=0):
