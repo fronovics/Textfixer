@@ -62,7 +62,10 @@ class ReportCallback(callbacks.Callback):
                 # print(c,j)
                 count += 1
                 decode_sent = decoded_res[j]
-                corrected = correction(decode_sent)
+                # Antons: here we don't use the KENLM language model, because it is very quirky in installation.
+                # We will need our own.
+                #corrected = correction(decode_sent)
+                corrected = decode_sent
                 label = word_batch['source_str'][j]
                 #print(label)
 
