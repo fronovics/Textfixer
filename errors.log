@@ -3754,3 +3754,69 @@ ValueError                                Traceback (most recent call last)
 ValueError: arrays must all be same length
 2018-12-18 11:03:52,341 - (Windows 10 nt) IPKernelApp - INFO - Finishing abort
 C:\Users\anfro\AppData\Local\Continuum\anaconda3\lib\site-packages\ipykernel_launcher.py:179: UserWarning: Update your `fit_generator` call to the Keras 2 API: `fit_generator(generator=<generator..., steps_per_epoch=2812, epochs=10, callbacks=[<keras.ca..., validation_data=<generator..., validation_steps=312, initial_epoch=0, verbose=1, class_weight=None, workers=1, use_multiprocessing=False, max_queue_size=10)`
+2018-12-18 11:54:51,755 - (Windows 10 nt) IPKernelApp - INFO - Exception in execute request:
+---------------------------------------------------------------------------
+KeyboardInterrupt                         Traceback (most recent call last)
+<ipython-input-32-b3f47c9a9b7f> in <module>
+----> 1 main(args)
+
+<ipython-input-15-8d0e6a447b41> in main(args)
+    177                         max_q_size=10,
+    178                         workers=1,
+--> 179                         pickle_safe=False
+    180                         )
+    181 
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\keras\legacy\interfaces.py in wrapper(*args, **kwargs)
+     89                 warnings.warn('Update your `' + object_name +
+     90                               '` call to the Keras 2 API: ' + signature, stacklevel=2)
+---> 91             return func(*args, **kwargs)
+     92         wrapper._original_function = func
+     93         return wrapper
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\keras\engine\training.py in fit_generator(self, generator, steps_per_epoch, epochs, verbose, callbacks, validation_data, validation_steps, class_weight, max_queue_size, workers, use_multiprocessing, shuffle, initial_epoch)
+   1413             use_multiprocessing=use_multiprocessing,
+   1414             shuffle=shuffle,
+-> 1415             initial_epoch=initial_epoch)
+   1416 
+   1417     @interfaces.legacy_generator_methods_support
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\keras\engine\training_generator.py in fit_generator(model, generator, steps_per_epoch, epochs, verbose, callbacks, validation_data, validation_steps, class_weight, max_queue_size, workers, use_multiprocessing, shuffle, initial_epoch)
+    211                 outs = model.train_on_batch(x, y,
+    212                                             sample_weight=sample_weight,
+--> 213                                             class_weight=class_weight)
+    214 
+    215                 outs = to_list(outs)
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\keras\engine\training.py in train_on_batch(self, x, y, sample_weight, class_weight)
+   1213             ins = x + y + sample_weights
+   1214         self._make_train_function()
+-> 1215         outputs = self.train_function(ins)
+   1216         return unpack_singleton(outputs)
+   1217 
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\keras\backend\tensorflow_backend.py in __call__(self, inputs)
+   2664                 return self._legacy_call(inputs)
+   2665 
+-> 2666             return self._call(inputs)
+   2667         else:
+   2668             if py_any(is_tensor(x) for x in inputs):
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\keras\backend\tensorflow_backend.py in _call(self, inputs)
+   2634                                 symbol_vals,
+   2635                                 session)
+-> 2636         fetched = self._callable_fn(*array_vals)
+   2637         return fetched[:len(self.outputs)]
+   2638 
+
+~\AppData\Local\Continuum\anaconda3\lib\site-packages\tensorflow\python\client\session.py in __call__(self, *args, **kwargs)
+   1437           ret = tf_session.TF_SessionRunCallable(
+   1438               self._session._session, self._handle, args, status,
+-> 1439               run_metadata_ptr)
+   1440         if run_metadata:
+   1441           proto_data = tf_session.TF_GetBuffer(run_metadata_ptr)
+
+KeyboardInterrupt: 
+2018-12-18 11:54:51,763 - (Windows 10 nt) IPKernelApp - INFO - Aborting:
+2018-12-18 11:54:51,763 - (Windows 10 nt) IPKernelApp - INFO - {'header': {'msg_id': '9a1350656e8a431092f07a6278f85adc', 'username': 'username', 'session': '9ef48d82855f44009ce13c77ec36053a', 'msg_type': 'kernel_info_request', 'version': '5.2', 'date': datetime.datetime(2018, 12, 18, 10, 54, 51, 285077, tzinfo=tzutc())}, 'msg_id': '9a1350656e8a431092f07a6278f85adc', 'msg_type': 'kernel_info_request', 'parent_header': {}, 'metadata': {}, 'content': {}, 'buffers': []}
+2018-12-18 11:54:51,764 - (Windows 10 nt) IPKernelApp - INFO - Finishing abort
